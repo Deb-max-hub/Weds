@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Debjyoti & Shreya | Kolkata</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    a{
+      color: #fff;
+      text-decoration: none;
+    }
+    :root{
+      --bg:#fff8f8;
+      --primary:#e63946;
+      --accent:#ffb703;
+      --text:#222;
+      --muted:#666;
+      --card:#ffffffd9;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+      color:var(--text);
+      background:radial-gradient(1200px 600px at 70% -10%, #ffe0e5 10%, transparent 60%),
+                 radial-gradient(900px 500px at 0% 10%, #fff2d9 10%, transparent 60%),
+                 var(--bg);
+      overflow-x:hidden;
+    }
+
+    /* Floating hearts background */
+    .hearts{position:fixed;inset:0;pointer-events:none;z-index:0}
+    .heart{position:absolute;opacity:.25;animation:float var(--dur) linear infinite;}
+    .heart::before{content:"❤";font-size:var(--size);color:var(--primary);filter:drop-shadow(0 6px 12px #e6394630)}
+    @keyframes float{from{transform:translateY(100vh) translateX(0) rotate(0)} to{transform:translateY(-20vh) translateX(var(--x)) rotate(360deg)}}
+
+    header{
+      position:relative;z-index:1;min-height:90vh;display:grid;place-items:center;text-align:center;padding:3rem 1.25rem;
+    }
+    .badge{display:inline-flex;gap:.5rem;align-items:center;background:#ffffffb8;border:1px solid #fff;border-radius:999px;padding:.5rem 1rem;backdrop-filter: blur(4px)}
+    .title{
+      font-family:"Great Vibes",cursive; font-size:clamp(40px,8vw,92px); margin:.25rem 0; color:#c1121f;
+      text-shadow:0 8px 24px #c1121f26;
+      font-style: italic;
+    }
+    .subtitle{font-weight:600;letter-spacing:.08em;color:var(--muted)}
+    .card{background:var(--card);backdrop-filter: blur(8px); border:1px solid #fff; box-shadow:0 10px 30px #00000015; border-radius:24px;padding:1.25rem}
+    .cta{display:inline-block;background:var(--primary);color:#fff;border:none;border-radius:999px;padding:0.9rem 1.25rem;font-weight:600;cursor:pointer;box-shadow:0 12px 25px #e6394633;transition:transform .15s ease,box-shadow .15s}
+    .cta:hover{transform:translateY(-1px);box-shadow:0 16px 30px #e6394650}
+
+    section{position:relative;z-index:1;padding:3.5rem 1.2rem}
+    .container{max-width:1100px;margin:0 auto}
+
+    /* countdown */
+    .countdown{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:1.25rem}
+    .counter{padding:1rem;border-radius:18px;background:#fff;border:1px solid #fff;box-shadow:0 6px 18px #00000010}
+    .num{font-size:clamp(28px,5vw,44px);font-weight:700}
+    .lbl{font-size:12px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase}
+
+    /* sections */
+    .grid{display:grid;gap:18px}
+    @media(min-width:900px){.grid-2{grid-template-columns:1.2fr 1fr}}
+    .chip{display:inline-block;padding:.4rem .7rem;border-radius:999px;background:#fff;border:1px solid #fff;box-shadow:0 8px 18px #0000000f;margin:.25rem .25rem 0 0;color:#c1121f;font-weight:600}
+
+    .timeline{position:relative;padding-left:18px}
+    .timeline::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:2px;background:#ffd6dc}
+    .tl{position:relative;margin:1rem 0;padding:1rem 1rem 1rem 1.2rem;background:#fff;border:1px solid #fff;border-radius:16px;box-shadow:0 8px 18px #00000010}
+    .tl::before{content:"";position:absolute;left:-9px;top:16px;width:14px;height:14px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 4px #ffe5ea}
+
+    footer{padding:2rem 1rem 4rem;text-align:center;color:#888}
+    .small{font-size:12px}
+
+    /* image holder */
+    .photo{border-radius:24px;overflow:hidden;box-shadow:0 12px 30px #00000018;border:1px solid #fff}
+    .photo img{display:block;width:100%;height:auto}
+
+    /* simple fade/slide on view */
+    .reveal{opacity:0;transform:translateY(20px);transition:all .6s ease}
+    .reveal.show{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+  <div class="hearts" aria-hidden="true" id="hearts"></div>
+
+  <header class="container">
+    <span class="badge">💍09 March 2026 · Kolkata</span>
+    <h1 class="title">Debjyoti & Shreya</h1>
+    <p class="subtitle">Two hearts, one story — in Kolkata</p>
+
+    <div class="card" style="max-width:680px;margin:1.25rem auto 0">
+      <div id="whenwhere" class="grid grid-2">
+        <div>
+          <h3 style="margin:.25rem 0">Wedding Day</h3>
+          <p style="margin:.25rem 0;color:var(--muted)">Sunday · 09 March 2026 · 6:00 PM</p>
+          <div class="countdown" id="countdown">
+            <div class="counter"><div class="num" id="cd-d">–</div><div class="lbl">Days</div></div>
+            <div class="counter"><div class="num" id="cd-h">–</div><div class="lbl">Hours</div></div>
+            <div class="counter"><div class="num" id="cd-m">–</div><div class="lbl">Minutes</div></div>
+            <div class="counter"><div class="num" id="cd-s">–</div><div class="lbl">Seconds</div></div>
+          </div>
+        </div>
+        <div>
+          <h3 style="margin:.25rem 0">Venue · Kolkata</h3>
+          <p style="margin:.25rem 0;color:var(--muted)">.</p>
+          <a class="cta" href="https://maps.app.goo.gl/tEyMGhjBfdqSm1i26" target="_blank" rel="noopener">Open Map</a>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:0.2rem">
+      <div class="ca" id="rsvpBtn" ></div>
+    </div>
+  </header>
+
+  <section>
+    <div class="container grid grid-2">
+      <div class="reveal">
+        <h2 style="margin:0 0 .5rem;font-family:Great Vibes;font-size:54px;color:#9a031e">Our Story</h2>
+        <p>From the bustling streets of <strong>Kolkata</strong> to quiet late‑night chats, Debjoyti Ghosh and Shreya found their forever in the little moments. We can’t wait to celebrate this new chapter with you.</p>
+        <div>
+          <span class="chip">#KolkataWedding</span>
+          <span class="chip">#DebjoytiAndShreya</span>
+          <span class="chip">#MadeForEachOther</span>
+        </div>
+      </div>
+      <div class="photo reveal">
+        <!--
+          To use your own photo:
+          1) Save your picture as img.jpg in the same folder as this file, or
+          2) Replace src with your image URL or data URI.
+        -->
+        <img src="img.jpg" alt="Debjoyti & Shreya" />
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container grid" style="max-width:900px">
+      <h2 class="reveal" style="margin:0 0 1rem;font-family:Great Vibes;font-size:54px;color:#9a031e">Schedule</h2>
+      <div class="timeline">
+        <div class="tl reveal">
+          <strong>Haldi</strong><br><span class="small">11:00 AM · Family Home</span>
+        </div>
+        <!--
+        <div class="tl reveal">
+          <strong>Sangeet</strong><br><span class="small">6:00 PM · Eve Before</span>
+        </div>
+        -->
+        <div class="tl reveal">
+          <strong>Wedding Ceremony</strong><br><span class="small">7:00 PM · Bisharpara Yubosomaj Club, Kolkata</span>
+        </div>
+        <div class="tl reveal">
+          <strong>Reception</strong><br><span class="small">8:00 PM · 11 March 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container card reveal" style="max-width:900px;text-align:center">
+      <h2 style="margin:.25rem 0;font-family:Great Vibes;font-size:54px;color:#9a031e">Dress Code</h2>
+      <p style="margin:.25rem 0;color:var(--muted)">Traditional attire in warm festive shades. Come comfy and ready to dance! 💃🕺</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>With love, <strong>Debjoyti & Shreya</strong> · Kolkata</p>
+      <p class="small">Made with ♥ DS.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ======= SETTINGS (edit these) =======
+    // Set your wedding date/time (local to viewer). Example: "2026-01-26T18:00:00"
+    const WEDDING_DATETIME = "2026-03-09T18:00:00";
+    
+
+
+
+    // ======= Countdown =======
+    const d = document.getElementById('cd-d');
+    const h = document.getElementById('cd-h');
+    const m = document.getElementById('cd-m');
+    const s = document.getElementById('cd-s');
+
+    function updateCountdown(){
+      const target = new Date(WEDDING_DATETIME).getTime();
+      const now = Date.now();
+      let diff = Math.max(0, target - now);
+      const days = Math.floor(diff / (1000*60*60*24)); diff -= days*24*60*60*1000;
+      const hrs  = Math.floor(diff / (1000*60*60));    diff -= hrs*60*60*1000;
+      const mins = Math.floor(diff / (1000*60));       diff -= mins*60*1000;
+      const secs = Math.floor(diff / 1000);
+      d.textContent = days; h.textContent = hrs; m.textContent = mins; s.textContent = secs;
+    }
+    updateCountdown(); setInterval(updateCountdown, 1000);
+
+    // ======= RSVP button =======
+    const rsvp = document.getElementById('rsvpBtn');
+    rsvp.addEventListener('click', () => { window.location.href = RSVP_EMAIL; confetti(); });
+
+    // ======= Simple confetti =======
+    function confetti(){
+      const total = 120;
+      for(let i=0;i<total;i++){
+        const el = document.createElement('div');
+        el.style.cssText = `position:fixed;left:${Math.random()*100}vw;top:-10px;width:10px;height:14px;opacity:1;transform:rotate(${Math.random()*360}deg);background:hsl(${Math.random()*360} 90% 60%)`; 
+        el.style.clipPath = 'polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)';
+        el.style.zIndex = 9999; document.body.appendChild(el);
+        const fall = el.animate([
+          { transform:el.style.transform, top:'-10px' },
+          { transform:`rotate(${Math.random()*720}deg)`, top:'105vh' }
+        ],{ duration: 2000 + Math.random()*1500, easing:'cubic-bezier(.2,.7,.2,1)' });
+        fall.onfinish = ()=>el.remove();
+      }
+    }
+
+    // ======= Floating hearts background =======
+    const hearts = document.getElementById('hearts');
+    for(let i=0;i<24;i++){
+      const hrt = document.createElement('div');
+      hrt.className = 'heart';
+      hrt.style.left = Math.random()*100 + 'vw';
+      hrt.style.setProperty('--size', (14 + Math.random()*28) + 'px');
+      hrt.style.setProperty('--x', (Math.random()*60-30) + 'vw');
+      hrt.style.setProperty('--dur', (12 + Math.random()*20) + 's');
+      hrt.style.animationDelay = (-Math.random()*20) + 's';
+      hearts.appendChild(hrt);
+    }
+
+    // ======= Reveal on scroll =======
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+    },{ threshold:.15 });
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
